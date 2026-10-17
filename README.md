@@ -4,7 +4,7 @@ An AI-powered student finance assistant that helps users track expenses, manage 
 
 ## How It Works
 
-**Workflow:** Streamlit chat page → Claude (LLM) → 6 tools → Simulated data (`state.json`)
+**Workflow:** Streamlit chat page → Claude (LLM) → 6 tools → Simulated data (`data.json`)
 
 | Tier | Tools | Rule |
 |---|---|---|
