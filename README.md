@@ -48,7 +48,7 @@ export ANTHROPIC_API_KEY="your-key"
 $env:ANTHROPIC_API_KEY="your-key"
 ```
 
-**Security:** Never commit your real API key to GitHub.
+
 
 ### 4. Run the Application
 
