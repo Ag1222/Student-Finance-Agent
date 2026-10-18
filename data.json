@@ -1,0 +1,29 @@
+{
+  "budget_myr": 2000,
+  "expenses": [
+    {
+      "amount": 15.0,
+      "currency": "MYR",
+      "description": "lunch"
+    }
+  ],
+  "providers": {
+    "TNG eWallet": {
+      "fee_myr": 5,
+      "rate": 0.3
+    },
+    "GrabPay": {
+      "fee_myr": 4,
+      "rate": 0.3
+    },
+    "Wise": {
+      "fee_myr": 3,
+      "rate": 0.31
+    },
+    "Bank Transfer": {
+      "fee_myr": 15,
+      "rate": 0.3
+    }
+  },
+  "payments": []
+}
