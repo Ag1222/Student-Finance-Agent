@@ -1,24 +1,5 @@
 
 import re
-import traceback
-
-_original_re_compile = re._compile
-
-def _debug_re_compile(pattern, flags):
-    try:
-        return _original_re_compile(pattern, flags)
-    except re.error:
-        print("\n" + "=" * 60)
-        print("INVALID REGULAR EXPRESSION FOUND")
-        print("Pattern:", repr(pattern))
-        print("Flags:", flags)
-        traceback.print_exc()
-        print("=" * 60 + "\n")
-        raise
-
-re._compile = _debug_re_compile
-
-import re
 import streamlit as st
 
 from tools import (
