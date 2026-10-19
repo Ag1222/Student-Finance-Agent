@@ -1,6 +1,6 @@
 # Student Finance Agent
 
-A student-focused finance assistant designed to help Malaysian students manage expenses, monitor budgets, compare payment providers, identify potentially risky payments, and review simulated payments.
+A student-focused finance assistant designed to help students manage expenses, monitor budgets, compare payment providers, identify potentially risky payments, and review simulated payments.
 
 ## Features
 
@@ -82,7 +82,7 @@ For local execution, follow the installation and run instructions above.
 ## Important Limitations
 
 - Provider fees and exchange rates are illustrative sample values, not live financial quotes.
-- Budget monitoring currently counts MYR expenses; foreign-currency expenses are not automatically converted into MYR.
+- Budget monitoring currently counts MYR expenses; supported foreign-currency expenses are automatically converted into MYR.
 - Payment-risk checks use simple rules and do not guarantee fraud detection.
 - Payments are simulated only. The application does not transfer real money.
 - The application is a prototype for educational and demonstration purposes, not professional financial advice.
