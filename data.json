@@ -1,28 +1,50 @@
 {
-  "budget_myr": 2000,
-  "expenses": [
-    {
-      "amount": 15.0,
-      "currency": "MYR",
-      "description": "lunch"
-    }
-  ],
+  "budget_myr": 2400.0,
+  "expenses": [],
   "providers": {
     "TNG eWallet": {
       "fee_myr": 5,
-      "rate": 0.3
+      "rates": {
+        "SGD": 0.31,
+        "GBP": 0.17,
+        "USD": 0.23,
+        "EUR": 0.2,
+        "IDR": 10500,
+        "CNY": 1.65
+      }
     },
     "GrabPay": {
       "fee_myr": 4,
-      "rate": 0.3
+      "rates": {
+        "SGD": 0.31,
+        "GBP": 0.17,
+        "USD": 0.23,
+        "EUR": 0.2,
+        "IDR": 10500,
+        "CNY": 1.65
+      }
     },
     "Wise": {
       "fee_myr": 3,
-      "rate": 0.31
+      "rates": {
+        "SGD": 0.31,
+        "GBP": 0.17,
+        "USD": 0.23,
+        "EUR": 0.2,
+        "IDR": 10500,
+        "CNY": 1.65
+      }
     },
     "Bank Transfer": {
       "fee_myr": 15,
-      "rate": 0.3
+      "rates": {
+        "SGD": 0.31,
+        "GBP": 0.17,
+        "USD": 0.23,
+        "EUR": 0.2,
+        "IDR": 10500,
+        "CNY": 1.65
+      }
     }
   },
   "payments": []

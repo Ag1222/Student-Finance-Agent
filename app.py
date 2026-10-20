@@ -3,6 +3,7 @@ import re
 import streamlit as st
 
 from tools import (
+    set_budget,
     add_expense,
     get_budget_status,
     compare_providers,
@@ -40,10 +41,39 @@ if "pending_payment" not in st.session_state:
     st.session_state.pending_payment = None
 
 
+
 # ---------- Budget sidebar ----------
 with st.sidebar:
     st.header("📊 Your Budget")
 
+    # Allow users to set their monthly budget
+    st.subheader("Set monthly budget")
+
+    current_budget = get_budget_status()["budget_myr"]
+
+    with st.form("budget_form"):
+        new_budget = st.number_input(
+            "Monthly budget (RM)",
+            min_value=1.0,
+            value=float(current_budget),
+            step=100.0,
+            format="%.2f",
+        )
+
+        submitted = st.form_submit_button("Save budget")
+
+        if submitted:
+            result = set_budget(new_budget)
+
+            if "error" in result:
+                st.error(result["error"])
+            else:
+                st.success(result["message"])
+                st.rerun()
+
+    st.divider()
+
+    # Display updated budget information
     try:
         budget = get_budget_status()
         st.metric("Monthly budget", f"RM {budget['budget_myr']:.2f}")
@@ -71,7 +101,6 @@ with st.sidebar:
         """
     )
 
-
 # ---------- Process chat messages ----------
 def process_message(message):
     text = message.strip()
@@ -91,10 +120,10 @@ def process_message(message):
 
 
         currency_match = re.search(
-            r"\b(RM|MYR|USD|SGD|GBP|EUR)\b",
-            text,
-            re.IGNORECASE,
-        )
+    r"(?<![A-Za-z])(RM|MYR|USD|SGD|GBP|EUR|IDR|CNY)(?![A-Za-z])",
+    text,
+    re.IGNORECASE,
+)
         currency = (
             currency_match.group(1).upper()
             if currency_match
@@ -128,21 +157,78 @@ def process_message(message):
             )
 
         return f"❌ {result.get('message', result)}"
-
+    
     # 2. Compare transfer providers
     if any(word in lower for word in ["compare", "comparison"]):
         if amount is None:
-            return "Please include an amount, e.g. `Compare ways to send RM2000 to the UK`."
+            return (
+                "Please include an amount, e.g. "
+                "`Compare ways to send RM2000 to Singapore`."
+            )
 
-        results = compare_providers(amount)
+       
+        # Detect the source currency. Default to MYR if none is specified.
+        currency_match = re.search(
+            r"(?<![A-Za-z])(RM|MYR|USD|SGD|GBP|EUR)(?![A-Za-z])",
+            text,
+            re.IGNORECASE,
+        )
+
+        source_currency = (
+            currency_match.group(1).upper()
+            if currency_match
+            else "MYR"
+        )
+
+        if source_currency == "RM":
+            source_currency = "MYR"
+
+        # Detect destination country.
+        destination = None
+        destination_currencies = {
+    "singapore": "SGD",
+    "malaysia": "MYR",
+    "indonesia": "IDR",
+    "china": "CNY",
+    "usa": "USD",
+    "united states": "USD",
+    "europe": "EUR",
+    "uk": "GBP",
+    "united kingdom": "GBP",
+    "britain": "GBP",
+}
+
+        for country, currency_code in destination_currencies.items():
+            if re.search(rf"\b{re.escape(country)}\b", lower):
+                destination = (country.title(), currency_code)
+                break
+
+        if destination is None:
+            return (
+                "Please specify a supported destination country, "
+                "e.g. `Compare ways to send RM2000 to Singapore`."
+            )
+
+        country_name, currency_code = destination
+
+        results = compare_providers(
+            amount,
+            target_currency=currency_code,
+            source_currency=source_currency,
+        )
 
         if isinstance(results, dict):
-            return f"Could not compare providers: {results}"
+            return f"Could not compare providers: {results['error']}"
+
+        if not results:
+            return "No provider comparison results are available."
 
         lines = [
-            f"### 💱 Provider comparison for RM {amount:.2f}",
+            f"### 💱 Transfer comparison: {source_currency} {amount:.2f}",
+            f"**Destination:** {country_name} ({currency_code})",
             "",
-            "| Provider | Sample fee | Estimated foreign currency received |",
+            "| Provider | Sample fee (MYR) | Estimated amount received "
+            f"({currency_code}) |",
             "|---|---:|---:|",
         ]
 
@@ -153,11 +239,22 @@ def process_message(message):
                 f"| {item['foreign_received']:.2f} |"
             )
 
-        lines.append(
-            "\n*These figures use sample rates and fees. "
-            "They are not live quotes or verified GBP transfer estimates.*"
-        )
+        best = max(results, key=lambda item: item["foreign_received"])
+
+        lines.extend([
+            "",
+            f"**Highest estimated payout:** {best['provider']} "
+            f"({best['foreign_received']:.2f} {currency_code})",
+            "",
+            (
+                "> **Important:** Fees and exchange rates are illustrative "
+                "sample values, not live provider quotes. Check the provider "
+                "directly before transferring."
+            ),
+        ])
+
         return "\n".join(lines)
+
 
     # 3. Review a simulated payment
     if lower.startswith("pay ") or lower.startswith("simulate payment"):

@@ -15,11 +15,23 @@ class TestFinanceTools(unittest.TestCase):
         self.data_file.write_text(json.dumps({
             "budget_myr": 1000,
             "expenses": [],
-            "providers": {
-                "TNG eWallet": {"fee_myr": 5, "rate": 0.30},
-                "GrabPay": {"fee_myr": 4, "rate": 0.30},
-                "Wise": {"fee_myr": 3, "rate": 0.31},
-                "Bank Transfer": {"fee_myr": 15, "rate": 0.30}
+                       "providers": {
+                "TNG eWallet": {
+                    "fee_myr": 5,
+                    "rates": {"SGD": 0.30, "GBP": 0.17, "USD": 0.23, "EUR": 0.20}
+                },
+                "GrabPay": {
+                    "fee_myr": 4,
+                    "rates": {"SGD": 0.30, "GBP": 0.17, "USD": 0.23, "EUR": 0.20}
+                },
+                "Wise": {
+                    "fee_myr": 3,
+                    "rates": {"SGD": 0.31, "GBP": 0.17, "USD": 0.23, "EUR": 0.20}
+                },
+                "Bank Transfer": {
+                    "fee_myr": 15,
+                    "rates": {"SGD": 0.30, "GBP": 0.17, "USD": 0.23, "EUR": 0.20}
+                }
             },
             "payments": []
         }), encoding="utf-8")
