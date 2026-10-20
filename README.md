@@ -1,6 +1,10 @@
 # 💰 Student Finance Agent
 
+<<<<<<< HEAD
 A Streamlit-based finance assistant designed to help students manage everyday expenses, monitor budgets, compare cross-border money transfers, and simulate payments.
+=======
+A student-focused finance assistant designed to help students manage expenses, monitor budgets, compare payment providers, identify potentially risky payments, and review simulated payments.
+>>>>>>> origin/main
 
 > **Demo project:** Provider fees and exchange rates are illustrative sample values, not live financial quotes. No real payments are made.
 
@@ -139,6 +143,34 @@ The tests cover the finance tools and their expected behaviour. Run them after m
 
 Try entering these messages in the app:
 
+- `I spent RM15 on lunch`
+- `Compare ways to send RM2000 to the UK`
+- `Pay RM2000 tuition to Ahmad Tan (personal account) via Wise`
+
+## Deployment
+
+The application can be deployed using Streamlit Community Cloud.
+
+1. Push the source code to GitHub.
+2. Sign in to [Streamlit Community Cloud](https://share.streamlit.io/) using GitHub.
+3. Create a new app and select this repository.
+4. Select the appropriate branch and `app.py` as the main file.
+5. Deploy the application and test the public URL.
+
+For local execution, follow the installation and run instructions above.
+
+## Important Limitations
+
+- Provider fees and exchange rates are illustrative sample values, not live financial quotes.
+- Budget monitoring currently counts MYR expenses; supported foreign-currency expenses are automatically converted into MYR.
+- Payment-risk checks use simple rules and do not guarantee fraud detection.
+- Payments are simulated only. The application does not transfer real money.
+- The application is a prototype for educational and demonstration purposes, not professional financial advice.
+
+## Repository Structure
+
+
+
 ```text
 I spent RM15 on lunch
 ```
@@ -147,6 +179,7 @@ I spent RM15 on lunch
 Compare ways to send RM2000 to Singapore
 ```
 
+<<<<<<< HEAD
 ```text
 Compare ways to send RM2000 to China
 ```
@@ -189,3 +222,6 @@ Use the payment simulation workflow to test a payment scenario supported by the 
 ## 📄 License
 
 Add a license if you intend to distribute or open-source this project.
+=======
+https://github.com/Ag1222/Student-Finance-Agent
+>>>>>>> origin/main
