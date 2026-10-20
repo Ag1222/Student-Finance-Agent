@@ -219,9 +219,4 @@ Use the payment simulation workflow to test a payment scenario supported by the 
 - Add stronger payment-risk checks and input validation.
 - Introduce secure user accounts and persistent database storage.
 
-## 📄 License
 
-Add a license if you intend to distribute or open-source this project.
-=======
-https://github.com/Ag1222/Student-Finance-Agent
->>>>>>> origin/main
