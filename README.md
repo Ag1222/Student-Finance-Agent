@@ -1,6 +1,6 @@
 # 💰 Student Finance Agent
 
-<<<<<<< HEAD
+
 A Streamlit-based finance assistant designed to help students manage everyday expenses, monitor budgets, compare cross-border money transfers, and simulate payments.
 =======
 A student-focused finance assistant designed to help students manage expenses, monitor budgets, compare payment providers, identify potentially risky payments, and review simulated payments.
