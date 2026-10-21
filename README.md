@@ -179,7 +179,7 @@ I spent RM15 on lunch
 Compare ways to send RM2000 to Singapore
 ```
 
-<<<<<<< HEAD
+
 ```text
 Compare ways to send RM2000 to China
 ```
